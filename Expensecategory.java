@@ -4,6 +4,10 @@
  */
 package gui;
 
+import java.sql.ResultSet;
+import java.sql.SQLIntegrityConstraintViolationException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author hp
@@ -15,7 +19,31 @@ public class Expensecategory extends javax.swing.JFrame {
      */
     public Expensecategory() {
         initComponents();
+         getEntries();
     }
+    private void getEntries(){
+try{
+    javax.swing.table.DefaultTableModel dtm=
+                        (javax.swing.table.DefaultTableModel)tbl.getModel();
+    int rc=dtm.getRowCount();
+    while(rc--!=0){ 
+       dtm.removeRow(0);
+    }
+    
+            ResultSet rs=db.Dbconnect1.st.executeQuery("select * from category_proc");
+            int sno=0;
+            while(rs.next()){
+                String category=rs.getString("categorypr");
+                
+                Object o[]={++sno,category};
+                dtm.addRow(o);
+            }
+}
+catch(Exception ex){
+    JOptionPane.showMessageDialog(null, ex);
+    
+}
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,10 +64,10 @@ public class Expensecategory extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        catpr = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tbl = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
 
@@ -82,7 +110,8 @@ public class Expensecategory extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Business Insights Analyzer");
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 204));
 
@@ -110,6 +139,11 @@ public class Expensecategory extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(255, 255, 204));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("ADD");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,7 +158,7 @@ public class Expensecategory extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(catpr, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(20, 20, 20))))
@@ -137,23 +171,33 @@ public class Expensecategory extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(catpr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "S.no.", "Category"
             }
-        ));
-        jScrollPane4.setViewportView(jTable4);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tblPropertyChange(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tbl);
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 204));
 
@@ -161,6 +205,11 @@ public class Expensecategory extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("REMOVE");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -198,7 +247,54 @@ public class Expensecategory extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblPropertyChange
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      try{
+            String category=catpr.getText();
+            if(!category.equals("")){
+            db.Dbconnect1.st.executeUpdate("insert into category_proc values('"+category+"')");
+            JOptionPane.showMessageDialog(null, "Category Added Successfully!");
+            getEntries();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Please Enter Any Category!");
+            }
+        }
+        catch(SQLIntegrityConstraintViolationException ex){
+                JOptionPane.showMessageDialog(null, "Category Already Exists");
+        }     
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, ex);
+                      
+            }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+     int ri= tbl.getSelectedRow();
+        if(ri!= -1){
+        int r=JOptionPane.showConfirmDialog(null,"Do you want to delete this category?","Deletion Confirmation",
+               JOptionPane.YES_NO_OPTION);
+       if(r==JOptionPane.YES_OPTION){
+       String category=(String)tbl.getValueAt(ri, 1);
+       try{
+           
+            db.Dbconnect1.st.executeUpdate("delete from category_proc where categorypr='"+category+"'"); 
+             JOptionPane.showMessageDialog(null, "Category Deleted Successfully!");
+             getEntries();
+        }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, ex);
+                      
+            }
+       }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,6 +332,7 @@ public class Expensecategory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField catpr;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -250,7 +347,6 @@ public class Expensecategory extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tbl;
     // End of variables declaration//GEN-END:variables
 }
