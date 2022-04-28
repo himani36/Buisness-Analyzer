@@ -37,7 +37,7 @@ public class ViewExpenses extends javax.swing.JFrame {
     private void displayCategory(){
     try{
        
-        ResultSet rs= db.Dbconnect1.st.executeQuery("Select * from category_proc");
+        ResultSet rs= db.DbConnect.st.executeQuery("Select * from category_proc");
         while(rs.next()){
             pcategory.addItem(rs.getString("categorypr"));
         }
@@ -424,7 +424,7 @@ public class ViewExpenses extends javax.swing.JFrame {
         } 
         java.sql.Date dt1= new java.sql.Date(da1.getDate().getTime());
         java.sql.Date dt2= new java.sql.Date(da2.getDate().getTime()); 
-        ResultSet rs=db.Dbconnect1.st.executeQuery
+        ResultSet rs=db.DbConnect.st.executeQuery
         ("Select * from production where pdate>='"+dt1+"' and pdate<='"+dt2+"' order by pdate asc");
         int total=0;
 db.Dbconnect1.st1.executeUpdate("Insert into pdatewise(pwdate,pwamount)Select pdate,pamount from production where pdate>='"+dt1+"' and pdate<='"+dt2+"' order by pdate asc");
@@ -464,7 +464,7 @@ db.Dbconnect1.st1.executeUpdate("Insert into pdatewise(pwdate,pwamount)Select pd
         String c=(String)pcategory.getSelectedItem();
         java.sql.Date dt1= new java.sql.Date(dda.getDate().getTime());
         java.sql.Date dt2= new java.sql.Date(dda1.getDate().getTime()); 
-        ResultSet  rs=db.Dbconnect1.st.executeQuery
+        ResultSet  rs=db.DbConnect.st.executeQuery
         ("Select * from production where pdate>='"+dt1+"' and pdate<='"+dt2+"' and pcategory='"+c+"' order by pdate asc");
         int total=0;
 db.Dbconnect1.st1.executeUpdate("Insert into pcatwise(pcatdate,pcatamount,pcategory)Select pdate,pamount ,pcategory from production where pdate>='"+dt1+"' and pdate<='"+dt2+"' and pcategory='"+c+"' order by pdate asc");

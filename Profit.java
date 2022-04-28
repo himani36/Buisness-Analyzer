@@ -247,7 +247,7 @@ public class Profit extends javax.swing.JFrame {
         }
         ts.setText(total+"");
         
-        ResultSet  rs1=db.Dbconnect1.st.executeQuery
+        ResultSet  rs1=db.DbConnect.st.executeQuery
         ("Select * from production where pdate>='"+da1+"' and pdate<='"+da2+"' order by pdate asc");
         float total1=0;
         
