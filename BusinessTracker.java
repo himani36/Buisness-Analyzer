@@ -484,6 +484,7 @@ public class BusinessTracker extends javax.swing.JFrame {
                 java.sql.Date date= new java.sql.Date(dt.getTime());
                 db.DbConnect.st.executeUpdate(
                         "insert into sales(category,sdate,amount) values('"+c+"','"+date+"',"+amount+")");
+                db.DbConnect.st.executeUpdate("Insert into transaction(date,info,credit) values('"+date+"','"+c+"',"+amount+")");  
                  JOptionPane.showMessageDialog(null,"Sales added successfully!");
                  getEntries();
             }

@@ -41,7 +41,7 @@ public class Productionexpenses extends javax.swing.JFrame {
             }
             java.time.LocalDate cd = java.time.LocalDate.now();
             java.time.LocalDate bd = cd.minusDays(20);
-            ResultSet rs = db.Dbconnect1.st.executeQuery("select* from production where pdate <='" + cd + "' and pdate >='" + bd + "'");
+            ResultSet rs = db.DbConnect.st.executeQuery("select* from production where pdate <='" + cd + "' and pdate >='" + bd + "'");
             int total = 0;
             while (rs.next()) {
                 int t = rs.getInt("pamount");
@@ -59,7 +59,7 @@ public class Productionexpenses extends javax.swing.JFrame {
     private void displayCategory() {
         try {
             pcat.removeAllItems();
-            ResultSet rs = db.Dbconnect1.st.executeQuery("Select * from category_proc");
+            ResultSet rs = db.DbConnect.st.executeQuery("Select * from category_proc");
             while (rs.next()) {
                 pcat.addItem(rs.getString("categorypr"));
             }
@@ -495,8 +495,9 @@ public class Productionexpenses extends javax.swing.JFrame {
             if (dt != null && !s1.equals("") && !c.equals("")) {
                 int amount = Integer.parseInt(s1);
                 java.sql.Date date = new java.sql.Date(dt.getTime());
-                db.Dbconnect1.st.executeUpdate(
+                db.DbConnect.st.executeUpdate(
                         "insert into production(pcategory,pdate,pamount) values('" + c + "','" + date + "'," + amount + ")");
+                db.DbConnect.st.executeUpdate("Insert into transaction(date,info,debit)values('" + date + "','" + c + "'," + amount + ")"); 
                 JOptionPane.showMessageDialog(null, "Sales added successfully!");
                 getEntries();
             } else {
@@ -517,7 +518,7 @@ public class Productionexpenses extends javax.swing.JFrame {
             if (r == JOptionPane.YES_OPTION);
             int id = (int) tabl.getValueAt(ri, 0);
             try {
-                db.Dbconnect1.st.executeUpdate("delete from production where pid=" + id);
+                db.DbConnect.st.executeUpdate("delete from production where pid=" + id);
                 JOptionPane.showMessageDialog(null, "Successfully Deleted");
                 getEntries();
             } catch (Exception ex) {
