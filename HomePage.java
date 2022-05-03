@@ -4,7 +4,24 @@
  */
 package gui;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import db.DbConnect;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 /**
  *
@@ -17,6 +34,7 @@ public class HomePage extends javax.swing.JFrame {
      */
     public HomePage() {
         initComponents();
+       
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
     }
@@ -50,6 +68,7 @@ public class HomePage extends javax.swing.JFrame {
           v.setVisible(true);
         }
     }
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,6 +90,9 @@ public class HomePage extends javax.swing.JFrame {
         combo2 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,9 +162,9 @@ public class HomePage extends javax.swing.JFrame {
         });
 
         jLabel3.setBackground(new java.awt.Color(202, 139, 184));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 44)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(202, 52, 159));
-        jLabel3.setText("For Production:");
+        jLabel3.setText("Graphical Representation:");
 
         jLabel4.setBackground(new java.awt.Color(202, 139, 184));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 44)); // NOI18N
@@ -179,10 +201,9 @@ public class HomePage extends javax.swing.JFrame {
         });
 
         jButton2.setBackground(new java.awt.Color(202, 139, 184));
-        jButton2.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 51, 102));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/pp.png"))); // NOI18N
-        jButton2.setText("Profit");
+        jButton2.setText("For Sales");
         jButton2.setFocusTraversalPolicyProvider(true);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,44 +211,82 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(202, 139, 184));
+        jButton3.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 51, 102));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/pp.png"))); // NOI18N
+        jButton3.setText("Profit");
+        jButton3.setFocusTraversalPolicyProvider(true);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setBackground(new java.awt.Color(202, 139, 184));
+        jButton4.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 51, 102));
+        jButton4.setText("For Expenses");
+        jButton4.setFocusTraversalPolicyProvider(true);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setBackground(new java.awt.Color(202, 139, 184));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 44)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(202, 52, 159));
+        jLabel6.setText("For Production:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(145, 145, 145))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(combo2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(60, 60, 60)))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(combo2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(49, 49, 49)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(combo2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(82, 82, 82)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/analysis picture.jpg"))); // NOI18N
@@ -278,11 +337,71 @@ public class HomePage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       new transactions().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    private void text(){
+        try{
+    ResultSet rs=db.DbConnect.st.executeQuery("select MAX(amount) from sales");
+          String add1=rs.getString("MAX(amount)");
+          System.out.println(add1);
+        }
+        catch(SQLException ex){
+           JOptionPane.showMessageDialog(null, ex);
+       }
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+try{ 
+          String query="select MONTHNAME(sdate), amount from sales order by sdate asc"; 
+            
+          JDBCCategoryDataset dataset=new JDBCCategoryDataset(DbConnect.c, query);
+          JFreeChart chart= ChartFactory.createBarChart3D("Overall Graphical Representation of Sales" ,"Month", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
+          BarRenderer renderer=null;
+          renderer= new BarRenderer();     
+          ChartFrame frame=new ChartFrame("Business Insights Analyzer" , chart );
+          frame.setVisible(true);
+          frame.setSize(850,700);     
+          chart.setBackgroundPaint(new Color(144, 220, 245));
+          chart.getTitle().setPaint(Color.BLACK);
+          CategoryPlot p=chart.getCategoryPlot();
+          p.setRangeGridlinePaint(Color.GRAY);
+          CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();  
+      domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
+                   Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+      frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+       }
+        catch(Exception ex){
+           JOptionPane.showMessageDialog(null, ex);
+       }
+                
         
-         new Profit().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+         new Profit().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+ try{ 
+          String query="select MONTHNAME(pdate), pamount from production order by pdate asc";
+          JDBCCategoryDataset dataset=new JDBCCategoryDataset(DbConnect.c, query);
+          JFreeChart chart= ChartFactory.createBarChart3D("Overall Graphical Representation of Expenses" , "Month", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
+          BarRenderer renderer=null;
+          renderer= new BarRenderer();     
+          ChartFrame frame=new ChartFrame("Business Insights Analyzer" , chart );
+          frame.setVisible(true);
+          frame.setSize(850,700);     
+          chart.setBackgroundPaint(new Color(144, 220, 245));
+          chart.getTitle().setPaint(Color.BLACK);
+          CategoryPlot p=chart.getCategoryPlot();
+          p.setRangeGridlinePaint(Color.GRAY);
+          CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();  
+      domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
+      Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+      frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+                 
+       }
+        catch(Exception ex){
+           JOptionPane.showMessageDialog(null, ex);
+       }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,11 +443,14 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

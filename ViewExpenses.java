@@ -7,11 +7,16 @@ package gui;
 import db.DbConnect;
 import db.Dbconnect1;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -212,7 +217,7 @@ public class ViewExpenses extends javax.swing.JFrame {
                         .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(118, 118, 118)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                 .addGap(123, 123, 123))
         );
         jPanel1Layout.setVerticalGroup(
@@ -233,8 +238,8 @@ public class ViewExpenses extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jLabel6)
                     .addComponent(amnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addGap(12, 12, 12))
@@ -339,7 +344,7 @@ public class ViewExpenses extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pcategory, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton3)
@@ -363,8 +368,8 @@ public class ViewExpenses extends javax.swing.JFrame {
                             .addComponent(dda1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addGap(146, 146, 146)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(134, 134, 134))
         );
         jPanel2Layout.setVerticalGroup(
@@ -390,10 +395,10 @@ public class ViewExpenses extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(amnt2))
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -401,7 +406,7 @@ public class ViewExpenses extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -493,18 +498,21 @@ db.Dbconnect1.st1.executeUpdate("Insert into pcatwise(pcatdate,pcatamount,pcateg
         java.sql.Date dt2= new java.sql.Date(da2.getDate().getTime()); 
           String query="select pwdate, pwamount from pdatewise where pwdate>='"+dt1+"' and pwdate<='"+dt2+"' order by pwdate asc";
           JDBCCategoryDataset dataset=new JDBCCategoryDataset(Dbconnect1.c, query);
-          JFreeChart chart= ChartFactory.createBarChart3D("Bar Chart" , "Date", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
+          JFreeChart chart= ChartFactory.createBarChart3D("Datewise Representation Of Expenses" , "Date", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
           BarRenderer renderer=null;
           renderer= new BarRenderer();     
-          ChartFrame frame=new ChartFrame("Bar Chart" , chart );
+          ChartFrame frame=new ChartFrame("Business Insights Analyzer" , chart );
           frame.setVisible(true);
-          frame.setSize(450,350);
+          frame.setSize(850,700);
          
-          chart.setBackgroundPaint(Color.pink);
+          chart.setBackgroundPaint(new Color(144, 220, 245));
           chart.getTitle().setPaint(Color.BLACK);
           CategoryPlot p=chart.getCategoryPlot();
           p.setRangeGridlinePaint(Color.BLACK);
-                 
+          CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();  
+      domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
+                  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+      frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
        }
         catch(Exception ex){
            JOptionPane.showMessageDialog(null, ex);
@@ -519,18 +527,21 @@ db.Dbconnect1.st1.executeUpdate("Insert into pcatwise(pcatdate,pcatamount,pcateg
          String c=(String)pcategory.getSelectedItem();
           String query="select pcatdate , pcatamount from pcatwise where pcatdate>='"+dt1+"' and pcatdate<='"+dt2+"' and pcategory='"+c+"' order by pcatdate asc";
           JDBCCategoryDataset dataset=new JDBCCategoryDataset(Dbconnect1.c, query);
-          JFreeChart chart= ChartFactory.createBarChart3D("Bar Chart" , "Date", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
+          JFreeChart chart= ChartFactory.createBarChart3D("Categorywise Representation Of Expenses" , "Date", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
           BarRenderer renderer=null;
           renderer= new BarRenderer();     
-          ChartFrame frame=new ChartFrame("Bar Chart" , chart );
+          ChartFrame frame=new ChartFrame("Business Insights Analyzer" , chart );
           frame.setVisible(true);
-          frame.setSize(450,350);
-         
-          chart.setBackgroundPaint(Color.pink);
+          frame.setSize(850,700);
+          
+          chart.setBackgroundPaint(new Color(144, 220, 245));
           chart.getTitle().setPaint(Color.BLACK);
           CategoryPlot p=chart.getCategoryPlot();
           p.setRangeGridlinePaint(Color.BLACK);
-                 
+          CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();  
+      domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
+                  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+      frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
        }
         catch(Exception ex){
            JOptionPane.showMessageDialog(null, ex);

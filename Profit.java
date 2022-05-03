@@ -77,6 +77,12 @@ public class Profit extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(135, 155, 179));
 
+        dt1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dt1PropertyChange(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("FROM:");
 
@@ -270,6 +276,11 @@ public class Profit extends javax.swing.JFrame {
    
         
     }//GEN-LAST:event_SearchActionPerformed
+
+    private void dt1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dt1PropertyChange
+         dt2.setSelectableDateRange(dt1.getDate(), new java.util.Date());
+        dt2.setDate(dt1.getDate());
+    }//GEN-LAST:event_dt1PropertyChange
 
     /**
      * @param args the command line arguments
