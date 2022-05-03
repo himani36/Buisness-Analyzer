@@ -48,7 +48,7 @@ public class transactions extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("TRANSACTION HISTORY OF THE COMPANY");
+        jTextField1.setText("MONEY FLOW OF THE ORGANISATION");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -56,13 +56,18 @@ public class transactions extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        jLabel1.setText("Invested Amount:");
+        jLabel1.setText("INVESTED AMOUNT:");
 
         trans.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         trans.setText("0");
         trans.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transActionPerformed(evt);
+            }
+        });
+        trans.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                transKeyTyped(evt);
             }
         });
 
@@ -92,7 +97,7 @@ public class transactions extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(trans, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -122,7 +127,7 @@ public class transactions extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DATE", "INFORMATION", "DEBIT", "CREDIT", "BALANCE"
+                "DATE", "INFORMATION", "EXPENSES", "SALES", "BALANCE"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -247,6 +252,13 @@ public class transactions extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void transKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_transKeyTyped
+        char ch=evt.getKeyChar();
+     if(!Character.isDigit(ch)){
+         evt.consume();
+     }
+    }//GEN-LAST:event_transKeyTyped
 
     /**
      * @param args the command line arguments

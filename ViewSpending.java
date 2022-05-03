@@ -6,12 +6,16 @@ package gui;
 
 import db.DbConnect;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -127,6 +131,11 @@ private void displayCategory(){
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,7 +193,7 @@ private void displayCategory(){
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalamount1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(totalamount1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -195,9 +204,9 @@ private void displayCategory(){
                             .addComponent(d2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(bar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(107, 107, 107))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bar1)
+                .addGap(101, 101, 101))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,10 +227,10 @@ private void displayCategory(){
                     .addComponent(jLabel4)
                     .addComponent(totalamount1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addComponent(bar1)
-                .addGap(21, 21, 21))
+                .addGap(22, 22, 22))
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 0));
@@ -487,18 +496,21 @@ private void displayCategory(){
         java.sql.Date dt2= new java.sql.Date(d2.getDate().getTime()); 
           String query="select wdate, wamount from datewise where wdate>='"+dt1+"' and wdate<='"+dt2+"' order by wdate asc";
           JDBCCategoryDataset dataset=new JDBCCategoryDataset(DbConnect.c, query);
-          JFreeChart chart= ChartFactory.createBarChart3D("Bar Chart" , "Date", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
+          JFreeChart chart= ChartFactory.createBarChart3D("Datewise Representation Of Sales" , "Date", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
           BarRenderer renderer=null;
           renderer= new BarRenderer();     
-          ChartFrame frame=new ChartFrame("Bar Chart" , chart );
+          ChartFrame frame=new ChartFrame("Business Insights Analyzer" , chart );
           frame.setVisible(true);
-          frame.setSize(450,350);
+          frame.setSize(850,700);
          
-          chart.setBackgroundPaint(Color.pink);
+          chart.setBackgroundPaint(new Color(144, 220, 245));
           chart.getTitle().setPaint(Color.BLACK);
           CategoryPlot p=chart.getCategoryPlot();
           p.setRangeGridlinePaint(Color.BLACK);
-                 
+            CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();  
+      domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
+       Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+      frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
        }
         catch(Exception ex){
            JOptionPane.showMessageDialog(null, ex);
@@ -512,23 +524,32 @@ private void displayCategory(){
          String c=(String)category.getSelectedItem();
           String query="select catdate , catamount from catwise where catdate>='"+dt1+"' and catdate<='"+dt2+"' and wcategory='"+c+"' order by catdate asc";
           JDBCCategoryDataset dataset=new JDBCCategoryDataset(DbConnect.c, query);
-          JFreeChart chart= ChartFactory.createBarChart3D("Bar Chart" , "Date", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
+          JFreeChart chart= ChartFactory.createBarChart3D("Categorywise Representation Of Sales" , "Date", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
           BarRenderer renderer=null;
           renderer= new BarRenderer();     
-          ChartFrame frame=new ChartFrame("Bar Chart" , chart );
+          ChartFrame frame=new ChartFrame("Business Insights Analyzer" , chart );
           frame.setVisible(true);
-          frame.setSize(450,350);
+         frame.setSize(850,700);
          
-          chart.setBackgroundPaint(Color.pink);
+          chart.setBackgroundPaint(new Color(144, 220, 245));
           chart.getTitle().setPaint(Color.BLACK);
           CategoryPlot p=chart.getCategoryPlot();
-          p.setRangeGridlinePaint(Color.BLACK);
+          p.setRangeGridlinePaint(Color.GRAY);
+          CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();  
+      domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
+         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+      frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
                  
+          
        }
         catch(Exception ex){
            JOptionPane.showMessageDialog(null, ex);
        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1KeyPressed
 
     /**
      * @param args the command line arguments
