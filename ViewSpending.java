@@ -172,7 +172,7 @@ private void displayCategory(){
         bar1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         bar1.setForeground(new java.awt.Color(255, 255, 255));
         bar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/account_24px.png"))); // NOI18N
-        bar1.setText("Bar Chart");
+        bar1.setText("Analysis");
         bar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bar1ActionPerformed(evt);
@@ -193,7 +193,7 @@ private void displayCategory(){
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalamount1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
+                        .addComponent(totalamount1, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -316,7 +316,7 @@ private void displayCategory(){
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/account_24px.png"))); // NOI18N
-        jButton3.setText("Bar Chart");
+        jButton3.setText("Analysis");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
