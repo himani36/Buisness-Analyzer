@@ -178,7 +178,7 @@ public class ViewExpenses extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/account_24px.png"))); // NOI18N
-        jButton2.setText("Bar Chart");
+        jButton2.setText("Analysis");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -328,7 +328,7 @@ public class ViewExpenses extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/account_24px.png"))); // NOI18N
-        jButton4.setText("Bar Chart");
+        jButton4.setText("Analysis");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);

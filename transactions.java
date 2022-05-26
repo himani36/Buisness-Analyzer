@@ -127,7 +127,7 @@ public class transactions extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DATE", "INFORMATION", "EXPENSES", "SALES", "BALANCE"
+                "DATE", "INFORMATION", "EXPENSES", "SALES", "MONEY FLOW"
             }
         ) {
             boolean[] canEdit = new boolean [] {
