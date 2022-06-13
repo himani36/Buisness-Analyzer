@@ -358,8 +358,9 @@ public class HomePage extends javax.swing.JFrame {
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 try{ 
-          String query="select MONTHNAME(sdate), amount from sales order by sdate asc"; 
-            
+          //String query="select MONTHNAME(sdate), amount from sales order by sdate asc"; 
+           String query= "select date_format(sdate,'%M'),sum(amount)from sales "
+                   + "group by year(sdate),month(sdate) order by year(sdate),month(sdate)";
           JDBCCategoryDataset dataset=new JDBCCategoryDataset(DbConnect.c, query);
           JFreeChart chart= ChartFactory.createBarChart3D("Overall Graphical Representation of Sales" ,"Month", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
           BarRenderer renderer=null;
@@ -389,7 +390,10 @@ try{
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
  try{ 
-          String query="select MONTHNAME(pdate), pamount from production order by pdate asc";
+     
+          //"select MONTHNAME(pdate), pamount from production order by pdate asc";
+          String query="select date_format(pdate,'%M'),sum(pamount)from production "
+                  + "group by year(pdate),month(pdate) order by year(pdate),month(pdate);";
           JDBCCategoryDataset dataset=new JDBCCategoryDataset(DbConnect.c, query);
           JFreeChart chart= ChartFactory.createBarChart3D("Overall Graphical Representation of Expenses" , "Month", "Amount" , dataset,PlotOrientation.VERTICAL, false, true, true);
           BarRenderer renderer=null;
